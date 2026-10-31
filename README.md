@@ -2,17 +2,17 @@ English | [简体中文](./README_zh.md)
 
 # Workplace Simulation Lab: Simulating Abusive Supervision with Generative Agents
 
-A multi-agent simulation platform for organizational behavior research. Four agents driven by large language models form a functional team (one team lead and three team members) and spend a working week in a pixel-art office: they plan their days, move around, talk, form memories, experience emotions, and fill in questionnaires at scheduled times. The researcher sets only the initial conditions (for example, the team lead's leadership style); after that the world unfolds freely, with no scripted events.
+A multi-agent simulation platform for organizational behavior research. Four agents driven by large language models form a functional team (one team lead and three team members) and spend a working week in a pixel-art office: they plan their days, move around, talk, form memories, experience emotions, and fill in questionnaires at scheduled times. The researcher sets only the initial conditions (for example, the team lead’s leadership style); after that the world unfolds freely, with no scripted events.
 
 The main use is research on abusive supervision. The same team is run under a high-abuse and a low-abuse condition, matched by random seed, and agents are measured with the original scales from published studies.
 
-The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/GenerativeAgentsCN) (a Chinese refactor of [wounderland](https://github.com/Archermmt/wounderland), derived from Stanford's [Generative Agents](https://github.com/joonspk-research/generative_agents)). The upstream README is kept in [docs/upstream_README_en.md](./docs/upstream_README_en.md).
+The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/GenerativeAgentsCN) (a Chinese refactor of [wounderland](https://github.com/Archermmt/wounderland), derived from Stanford’s [Generative Agents](https://github.com/joonspk-research/generative_agents)). The upstream README is kept in [docs/upstream_README_en.md](./docs/upstream_README_en.md).
 
 > The interface opens in English, and the English templates run the simulation in English. Chinese is available through the 中 / EN switch and the Chinese templates. The pilot reported in the proposal ran the Chinese templates.
 
 ## Features
 
-- **Persona manipulation**: the team lead's "leadership style" has a high-abuse and a low-abuse version, written from Tepper's (2000) definition. All other persona text, world rules and initial conditions are identical across the two conditions.
+- **Persona manipulation**: the team lead’s “leadership style” has a high-abuse and a low-abuse version, written from Tepper’s (2000) definition. All other persona text, world rules and initial conditions are identical across the two conditions.
 - **Paired batch runs**: run several groups with several replicates each. The i-th world in every group uses the same random seed and therefore draws the same personalities, giving matched pairs. Worlds run in parallel and are fully isolated.
 - **Personality sampling**: each agent receives a Big Five profile drawn from real IPIP-50 respondents, written as short descriptions following the BFI-10 items (can be turned off).
 - **Replication questionnaires**: a built-in battery taken from published abusive-supervision studies, administered over the five workdays with the original respondent, time frame and measurement waves. Items are used verbatim. Questionnaires can be edited or added on the experiment setup page.
@@ -35,7 +35,7 @@ The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/Generati
    - Windows: double-click `Install.bat`. If Python is missing it installs Python 3.11 with the built-in winget (or opens the download page); it then creates a separate `.venv` inside the project folder, installs the dependencies, checks that they import, and, if Ollama is installed, offers to download the local embedding model. When the official package index is slow (common in mainland China) it suggests the Tsinghua mirror. Double-clicking `Start.bat` also works: without a `.venv` it runs the installer first. Installer and launcher messages are in English, or in Chinese on a Chinese system (set `SIM_LANG=en` or `SIM_LANG=zh` to choose).
    - macOS / Linux: run `bash install.sh` in the project folder.
 
-   Everything is installed into the project's `.venv` (about 600 MB) and does not touch other Python installations; deleting the project folder uninstalls it completely. The installer never asks for or stores API keys. If the environment breaks, run `Install.bat --recreate` (macOS / Linux: `bash install.sh --recreate`) to rebuild it.
+   Everything is installed into the project’s `.venv` (about 600 MB) and does not touch other Python installations; deleting the project folder uninstalls it completely. The installer never asks for or stores API keys. If the environment breaks, run `Install.bat --recreate` (macOS / Linux: `bash install.sh --recreate`) to rebuild it.
 
    Manual installation also works: `python -m venv .venv`, then `.venv\Scripts\pip install -r requirements.txt` (macOS / Linux: `.venv/bin/pip install -r requirements.txt`). Dependencies for the local HuggingFace embedding and the Baidu Qianfan, Zhipu and iFlytek Spark channels are in `requirements-optional.txt`; install them only when needed.
 
@@ -47,17 +47,17 @@ The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/Generati
 
 ## First run: API settings
 
-Open "Experiments & archive" in the top menu and expand "⚙ API settings". There are two parts; fill both and click "Save both settings" once.
+Open “Experiments & archive” in the top menu and expand “⚙ API settings”. There are two parts; fill both and click “Save both settings” once.
 
 **① Chat model** (used by agents to think, plan and talk)
 
 | Provider | Notes |
 |---|---|
 | OpenRouter (default) | One key for hundreds of models; can also serve embeddings. |
-| DeepSeek (official) | Recommended model: `deepseek-flash`. The app turns DeepSeek's thinking mode off by default (with thinking on, each call generates hundreds to thousands of hidden tokens, which is several times slower and billed as output). |
+| DeepSeek (official) | Recommended model: `deepseek-flash`. The app turns DeepSeek’s thinking mode off by default (with thinking on, each call generates hundreds to thousands of hidden tokens, which is several times slower and billed as output). |
 | OpenAI (official) | Embeddings switch automatically to OpenAI `text-embedding-3-small`. |
-| Google Gemini (official) | Uses Gemini's OpenAI-compatible endpoint; get a key from Google AI Studio. No embedding channel, so choose one in part ② (local Ollama recommended). |
-| Anthropic Claude (official) | Uses Claude's OpenAI-compatible endpoint; get a key from the Claude Console. Recent Claude models do not accept a custom temperature, so the app calls them at the default temperature. No embedding channel, so choose one in part ②. |
+| Google Gemini (official) | Uses Gemini’s OpenAI-compatible endpoint; get a key from Google AI Studio. No embedding channel, so choose one in part ② (local Ollama recommended). |
+| Anthropic Claude (official) | Uses Claude’s OpenAI-compatible endpoint; get a key from the Claude Console. Recent Claude models do not accept a custom temperature, so the app calls them at the default temperature. No embedding channel, so choose one in part ②. |
 | Custom compatible endpoint | Any OpenAI-compatible server, e.g., a local vLLM. |
 
 **② Embedding model** (turns memories into vectors for retrieval)
@@ -71,7 +71,7 @@ Open "Experiments & archive" in the top menu and expand "⚙ API settings". Ther
 | Local HuggingFace | Needs about 2 GB of extra dependencies. |
 | Custom compatible endpoint | Any OpenAI-compatible `/embeddings` service. |
 
-When both parts use the same provider, enter the key once. After saving, click "Test connection" and start only when both the chat model and the embedding report OK.
+When both parts use the same provider, enter the key once. After saving, click “Test connection” and start only when both the chat model and the embedding report OK.
 
 API keys are stored only in the `.env` file in the project root on your machine and are never written into simulation archives. Do not upload `.env` anywhere.
 
@@ -79,26 +79,26 @@ API keys are stored only in the `.env` file in the project root on your machine 
 
 ### Single run (debugging and observation)
 
-1. Open "New experiment", enter a name, and choose or load a world template.
-2. Choose "Single run" and click "Start experiment".
-3. In "Experiments & archive", click "View" to watch the world live on the map.
+1. Open “New experiment”, enter a name, and choose or load a world template.
+2. Choose “Single run” and click “Start experiment”.
+3. In “Experiments & archive”, click “View” to watch the world live on the map.
 
 ### Batch run (formal experiments)
 
-1. Open "New experiment" and enter a name.
-2. Choose "Batch run".
-3. Under "Experimental groups", select both "Persona-manipulation-high-abuse" and "Persona-manipulation-low-abuse" (in English mode this pair is selected by default; hold Ctrl to change the selection).
-4. Set "Replicates per group" and "Parallel worlds" (with 16 GB RAM, at most 6).
-5. Check the total number of worlds shown below, then click "Start experiment".
-6. Follow progress in the batch panel on "Experiments & archive". If a world fails, click "Rerun failed/stopped worlds"; it resumes from where it stopped.
+1. Open “New experiment” and enter a name.
+2. Choose “Batch run”.
+3. Under “Experimental groups”, select both “Persona-manipulation-high-abuse” and “Persona-manipulation-low-abuse” (in English mode this pair is selected by default; hold Ctrl to change the selection).
+4. Set “Replicates per group” and “Parallel worlds” (with 16 GB RAM, at most 6).
+5. Check the total number of worlds shown below, then click “Start experiment”.
+6. Follow progress in the batch panel on “Experiments & archive”. If a world fails, click “Rerun failed/stopped worlds”; it resumes from where it stopped.
 
-In batch mode, each world's duration, step count and personas come from the template files; the form at the top of the page applies only to single runs. The chat and embedding models come from the global API settings.
+In batch mode, each world’s duration, step count and personas come from the template files; the form at the top of the page applies only to single runs. The chat and embedding models come from the global API settings.
 
 ### Built-in templates
 
 | Template | Content |
 |---|---|
-| Persona-manipulation-high-abuse / low-abuse | A team in a company's marketing operations department (team lead Klaus; members Ayesha, Maria and Wolfgang). Starts Monday 08:00 and runs five workdays (120 steps of 60 minutes) with no scheduled events. The two groups differ only in the team lead's leadership style: nine kinds of concrete behaviour written as habits Klaus has formed over years of leading the team, describing only what others can see, without evaluative words (final in V26; see `V26更新说明.md`). |
+| Persona-manipulation-high-abuse / low-abuse | A team in a company’s marketing operations department (team lead Klaus; members Ayesha, Maria and Wolfgang). Starts Monday 08:00 and runs five workdays (120 steps of 60 minutes) with no scheduled events. The two groups differ only in the team lead’s leadership style: nine kinds of concrete behaviour written as habits Klaus has formed over years of leading the team, describing only what others can see, without evaluative words (final in V26; see `V26更新说明.md`). |
 | Event-manipulation-high-abuse / low-abuse | The same team, manipulated through 8 scheduled events; starts 13 February 08:00 and runs 7 days (168 steps). |
 | 人设操纵-高辱虐组 / 低辱虐组, 事件操纵-高辱虐组 / 低辱虐组 | Chinese versions of the four templates above, used for the pilot: the agents (克劳斯, 阿伊莎, 玛丽亚, 沃尔夫冈) think, talk and answer surveys in Chinese. The English templates are translations of these (V27); every other setting is identical. |
 
@@ -110,14 +110,14 @@ In batch mode, each world's duration, step count and personas come from the temp
 
 ## Results and data
 
-- When a batch finishes, click "Download whole batch" under "Batch history" on "Experiments & archive". Each comparable group is in its own subfolder of the zip.
+- When a batch finishes, click “Download whole batch” under “Batch history” on “Experiments & archive”. Each comparable group is in its own subfolder of the zip.
 - Raw files live in `generative_agents/results/`:
 
 | Folder | Content |
 |---|---|
 | `checkpoints/<world>/` | Full state at every step (resume or replay from any step) and line-by-line dialogue logs |
 | `surveys/<world>/` | Questionnaire answers (CSV and JSONL) |
-| `psych/<world>/` | Changes in agents' psychological states (mood, stress, energy, sociability) |
+| `psych/<world>/` | Changes in agents’ psychological states (mood, stress, energy, sociability) |
 | `monitor/<world>/` | Behavior timeline (`timeline.jsonl`) and a record of every model call (`model_calls.jsonl`, with latency and token usage) |
 
 ## Time and cost (rough guide)
@@ -126,11 +126,11 @@ These are rough estimates; actual numbers depend on the model, network and numbe
 
 - One world (five workdays) makes about 3,000–4,000 chat-model calls with about 7 million input tokens.
 - With `deepseek-flash` (thinking off) and local embeddings, one world takes about 1–1.5 hours; 10 worlds with 6 in parallel take about 2.5–3 hours.
-- At DeepSeek's off-peak price, one world costs about US$1. DeepSeek's peak hours are 9:00–12:00 and 14:00–18:00 Beijing time on weekdays; all other hours are half price.
+- At DeepSeek’s off-peak price, one world costs about US$1. DeepSeek’s peak hours are 9:00–12:00 and 14:00–18:00 Beijing time on weekdays; all other hours are half price.
 
 ### Cheap mode (V25.1, for pilots)
 
-On the setup page, expand "Cost-saving options (for limited budgets)" and tick "Budget mode" to cut model calls: questionnaire prompts put the shared part first so the provider can cache it, questionnaires due at the same time are answered several per call, events seen in one step are rated for importance in one call, and with 60-minute steps hourly plans are not split into sub-tasks. In an offline comparison this cut model calls by about 70% and input by about 60%; run time should roughly halve. Cheap mode slightly changes answers and behavior, its worlds are put in their own comparison group, and it is **for pilots, prompt tuning and model comparisons only, not for study data**. Unticked, the app behaves exactly as the main mode. See `V25.1更新说明.md` (Chinese).
+On the setup page, expand “Cost-saving options (for limited budgets)” and tick “Budget mode” to cut model calls: questionnaire prompts put the shared part first so the provider can cache it, questionnaires due at the same time are answered several per call, events seen in one step are rated for importance in one call, and with 60-minute steps hourly plans are not split into sub-tasks. In an offline comparison this cut model calls by about 70% and input by about 60%; run time should roughly halve. Cheap mode slightly changes answers and behavior, its worlds are put in their own comparison group, and it is **for pilots, prompt tuning and model comparisons only, not for study data**. Unticked, the app behaves exactly as the main mode. See `V25.1更新说明.md` (Chinese).
 
 ## Research design notes
 
@@ -147,10 +147,10 @@ On the setup page, expand "Cost-saving options (for limited budgets)" and tick "
 
 | Symptom | Cause and fix |
 |---|---|
-| The launcher says "The system cannot find the path specified" or a dependency is missing | The environment is not installed. Double-click `Install.bat` (macOS / Linux: `bash install.sh`); if problems remain, add `--recreate`. |
+| The launcher says “The system cannot find the path specified” or a dependency is missing | The environment is not installed. Double-click `Install.bat` (macOS / Linux: `bash install.sh`); if problems remain, add `--recreate`. |
 | Embedding test fails with `SSLError` or a dropped connection | The network to the cloud embedding service is unstable (common when reaching OpenRouter from mainland China). Switch to DashScope or local Ollama. The app retries for about one minute automatically. |
 | Local Ollama test returns 404 | Wrong embedding model name, or the model is not downloaded. Use `bge-m3:latest` and run `ollama pull bge-m3`. |
-| Runs are slow | Check latencies in `monitor/<world>/model_calls.jsonl`. Common causes: the model's thinking mode is on, embeddings go through a proxy, or too many worlds run at once. |
+| Runs are slow | Check latencies in `monitor/<world>/model_calls.jsonl`. Common causes: the model’s thinking mode is on, embeddings go through a proxy, or too many worlds run at once. |
 | The browser cannot open the page | Run the launcher again and use the address it prints (it moves to 5072 and up when 5071 is taken). Ports 5060 and 5061 are blocked by browsers, so the app starts at 5071. |
 | After upgrading, the page still shows the old version | The old server is still running in the background. Stop it as above and start again; the version is shown at the top left of the page. |
 
@@ -182,7 +182,7 @@ Version notes for each release are in the `changelog/` folder; known issues and 
 
 ## Acknowledgements and license
 
-- Stanford Generative Agents: Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). *Generative Agents: Interactive Simulacra of Human Behavior*. UIST '23.
+- Stanford Generative Agents: Park, J. S., O’Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). *Generative Agents: Interactive Simulacra of Human Behavior*. UIST ’23.
 - [wounderland](https://github.com/Archermmt/wounderland) and [GenerativeAgentsCN](https://github.com/x-glacier/GenerativeAgentsCN).
 - Personality pool: the public IPIP Big Five dataset (BIG5) from Open Psychometrics; processing is described in `generative_agents/data/personality/SOURCE.md`.
 - Definition and measurement of abusive supervision: Tepper, B. J. (2000). Consequences of abusive supervision. *Academy of Management Journal, 43*(2), 178–190.

@@ -1,4 +1,4 @@
-English | [简体中文](./README_zh.md)
+English | [Chinese](./README_zh.md)
 
 # Workplace Simulation Lab: Simulating Abusive Supervision with Generative Agents
 
@@ -8,7 +8,7 @@ The main use is research on abusive supervision. The same team is run under a hi
 
 The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/GenerativeAgentsCN) (a Chinese refactor of [wounderland](https://github.com/Archermmt/wounderland), derived from Stanford’s [Generative Agents](https://github.com/joonspk-research/generative_agents)). The upstream README is kept in [docs/upstream_README_en.md](./docs/upstream_README_en.md).
 
-> The interface opens in English, and the English templates run the simulation in English. Chinese is available through the 中 / EN switch and the Chinese templates. The pilot reported in the proposal ran the Chinese templates.
+> The interface opens in English, and the English templates run the simulation in English. Chinese is available through the language switch at the top right and through the Chinese templates. The pilot reported in the proposal ran the Chinese templates.
 
 ## Features
 
@@ -98,13 +98,13 @@ In batch mode, each world’s duration, step count and personas come from the te
 
 | Template | Content |
 |---|---|
-| Persona-manipulation-high-abuse / low-abuse | A team in a company’s marketing operations department (team lead Klaus; members Ayesha, Maria and Wolfgang). Starts Monday 08:00 and runs five workdays (120 steps of 60 minutes) with no scheduled events. The two groups differ only in the team lead’s leadership style: nine kinds of concrete behaviour written as habits Klaus has formed over years of leading the team, describing only what others can see, without evaluative words (final in V26; see `V26更新说明.md`). |
+| Persona-manipulation-high-abuse / low-abuse | A team in a company’s marketing operations department (team lead Klaus; members Ayesha, Maria and Wolfgang). Starts Monday 08:00 and runs five workdays (120 steps of 60 minutes) with no scheduled events. The two groups differ only in the team lead’s leadership style: nine kinds of concrete behaviour written as habits Klaus has formed over years of leading the team, describing only what others can see, without evaluative words (final in V26; see the V26 notes in `changelog/`). |
 | Event-manipulation-high-abuse / low-abuse | The same team, manipulated through 8 scheduled events; starts 13 February 08:00 and runs 7 days (168 steps). |
-| 人设操纵-高辱虐组 / 低辱虐组, 事件操纵-高辱虐组 / 低辱虐组 | Chinese versions of the four templates above, used for the pilot: the agents (克劳斯, 阿伊莎, 玛丽亚, 沃尔夫冈) think, talk and answer surveys in Chinese. The English templates are translations of these (V27); every other setting is identical. |
+| Chinese persona and event templates (file names in Chinese) | Chinese versions of the four templates above, used for the pilot: the same four agents, with Chinese names, think, talk and answer surveys in Chinese. The English templates are translations of these (V27); every other setting is identical. |
 
 ### Interface language and simulation language (V27)
 
-- **Interface language**: the interface opens in English. The 中 / EN switch at the top right changes all interface text and is remembered by the browser. It affects display only, never data. In English mode the setup page shows the English agents and templates; a link under the agent list shows the Chinese ones too.
+- **Interface language**: the interface opens in English. The language switch at the top right (Chinese / EN) changes all interface text and is remembered by the browser. It affects display only, never data. In English mode the setup page shows the English agents and templates; a link under the agent list shows the Chinese ones too.
 - **Simulation language**: set by the world template. The English templates above build English worlds: prompts (`data/prompts_en/`), personas, world rules, leadership styles, place names and surveys are in English, and answers are parsed in English formats. Chinese templates behave exactly as before. English and Chinese worlds behave differently, so **do not pool their data**; they never share a comparison group, and `experiment_manifest.csv` has a `language` column.
 - Every English survey item comes from a source that can be checked (the original reproduction items, the coding workbook or public scale pages); the source of each survey is recorded in `data/i18n/surveys_en.json`. English personas and leadership styles are translations of the Chinese ones (`data/i18n/content_en.json`). After changing a Chinese template, run `python tools/build_en_assets.py` to regenerate the English version.
 
@@ -130,7 +130,7 @@ These are rough estimates; actual numbers depend on the model, network and numbe
 
 ### Cheap mode (V25.1, for pilots)
 
-On the setup page, expand “Cost-saving options (for limited budgets)” and tick “Budget mode” to cut model calls: questionnaire prompts put the shared part first so the provider can cache it, questionnaires due at the same time are answered several per call, events seen in one step are rated for importance in one call, and with 60-minute steps hourly plans are not split into sub-tasks. In an offline comparison this cut model calls by about 70% and input by about 60%; run time should roughly halve. Cheap mode slightly changes answers and behavior, its worlds are put in their own comparison group, and it is **for pilots, prompt tuning and model comparisons only, not for study data**. Unticked, the app behaves exactly as the main mode. See `V25.1更新说明.md` (Chinese).
+On the setup page, expand “Cost-saving options (for limited budgets)” and tick “Budget mode” to cut model calls: questionnaire prompts put the shared part first so the provider can cache it, questionnaires due at the same time are answered several per call, events seen in one step are rated for importance in one call, and with 60-minute steps hourly plans are not split into sub-tasks. In an offline comparison this cut model calls by about 70% and input by about 60%; run time should roughly halve. Cheap mode slightly changes answers and behavior, its worlds are put in their own comparison group, and it is **for pilots, prompt tuning and model comparisons only, not for study data**. Unticked, the app behaves exactly as the main mode. See the V25.1 notes in `changelog/` (in Chinese).
 
 ## Research design notes
 
@@ -178,7 +178,7 @@ generative_agents/
   tests/                      Automated tests
 ```
 
-Version notes for each release are in the `changelog/` folder; known issues and research ideas are in `docs/待解决问题.md` (both in Chinese).
+Version notes for each release are in the `changelog/` folder; known issues and research ideas are in the issue log in `docs/` (both in Chinese).
 
 ## Acknowledgements and license
 

@@ -1,14 +1,37 @@
-English | [Chinese](./README_zh.md)
-
-# Workplace Simulation Lab: Simulating Abusive Supervision with Generative Agents
+# Workplace Simulation Lab: Simulating Organizational Behavior with Generative Agents
 
 A multi-agent simulation platform for organizational behavior research. Four agents driven by large language models form a functional team (one team lead and three team members) and spend a working week in a pixel-art office: they plan their days, move around, talk, form memories, experience emotions, and fill in questionnaires at scheduled times. The researcher sets only the initial conditions (for example, the team lead’s leadership style); after that the world unfolds freely, with no scripted events.
 
-The main use is research on abusive supervision. The same team is run under a high-abuse and a low-abuse condition, matched by random seed, and agents are measured with the original scales from published studies.
+The platform is meant for organizational behavior research in general: the researcher defines the experimental conditions, and agents answer the original scales of published studies at the measurement times those studies used. The built-in templates come from the first application, a study of abusive supervision: the same team is run under a high-abuse and a low-abuse condition, matched by random seed.
 
-The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/GenerativeAgentsCN) (a Chinese refactor of [wounderland](https://github.com/Archermmt/wounderland), derived from Stanford’s [Generative Agents](https://github.com/joonspk-research/generative_agents)). The upstream README is kept in [docs/upstream_README_en.md](./docs/upstream_README_en.md).
+The project builds on [GenerativeAgentsCN](https://github.com/x-glacier/GenerativeAgentsCN) (a refactor of [wounderland](https://github.com/Archermmt/wounderland), derived from Stanford’s [Generative Agents](https://github.com/joonspk-research/generative_agents)). The upstream README is kept in [docs/upstream_README_en.md](./docs/upstream_README_en.md).
 
-> The interface opens in English, and the English templates run the simulation in English. Chinese is available through the language switch at the top right and through the Chinese templates. The pilot reported in the proposal ran the Chinese templates.
+## About this review edition
+
+This copy of Workplace Simulation Lab V27.4 is prepared for reviewers. The program is the V27.4 release. Material that is not needed to read, run or check the platform has been left out:
+
+- the development notes and the per-version release notes (an English summary of the versions is in [CHANGELOG.md](./CHANGELOG.md));
+- the second-language copies of this README and of the upstream README;
+- a few scratch scripts used during development to test local embedding connections, and a map-alignment debug image;
+- two research files that belong to the reproduction package (the list of reverse-keyed items and the coding manual for the replication predictors).
+
+Apart from that, only three things differ from the release: two code comments that pointed to the removed notes, the file name of the debug image the map tool writes, and the default app name the platform sends to OpenRouter. Some code comments and the dictionary of the second interface language remain in Chinese.
+
+No API keys are included. Add your own in the API settings panel; keys are stored only in a local `.env` file in the project folder.
+
+Where to look first:
+
+| What | Where |
+| --- | --- |
+| Installing, running a batch experiment, outputs | This README |
+| The eight world templates (experimental groups) | `generative_agents/data/world_presets/`. The suffix gives the language of the world: `_CN` for the pilot reported in the proposal, `_EN` for the English translations. Each pair differs only in the leadership style of the team lead. |
+| Leadership-style text of each condition (original and English translation) | `generative_agents/data/experiment_conditions.json` |
+| Agents | `generative_agents/frontend/static/assets/village/agents/`: the English-named folders (Klaus, Ayesha, Maria, Wolfgang and 22 others) are used in `_EN` worlds; the same characters under their names in the other language are used in `_CN` worlds |
+| Prompts | `generative_agents/data/prompts_en/` (`_EN` worlds) and `generative_agents/data/prompts/` (`_CN` worlds) |
+| Replication questionnaires | `generative_agents/data/scale_battery/battery_v1.json`. It contains items of published scales and is provided for review only. |
+| Automated tests (191) | `generative_agents/tests/`; see “Development and tests” below |
+
+> The interface opens in English, and the English templates run the simulation in English. Chinese is available through the language switch at the top right and through the `_CN` templates. The pilot reported in the proposal ran the `_CN` templates.
 
 ## Features
 
@@ -87,7 +110,7 @@ API keys are stored only in the `.env` file in the project root on your machine 
 
 1. Open “New experiment” and enter a name.
 2. Choose “Batch run”.
-3. Under “Experimental groups”, select both “Persona-manipulation-high-abuse” and “Persona-manipulation-low-abuse” (in English mode this pair is selected by default; hold Ctrl to change the selection).
+3. Under “Experimental groups”, select both “Persona-manipulation-high-abuse_EN” and “Persona-manipulation-low-abuse_EN” (in English mode this pair is selected by default; hold Ctrl to change the selection).
 4. Set “Replicates per group” and “Parallel worlds” (with 16 GB RAM, at most 6).
 5. Check the total number of worlds shown below, then click “Start experiment”.
 6. Follow progress in the batch panel on “Experiments & archive”. If a world fails, click “Rerun failed/stopped worlds”; it resumes from where it stopped.
@@ -98,9 +121,9 @@ In batch mode, each world’s duration, step count and personas come from the te
 
 | Template | Content |
 |---|---|
-| Persona-manipulation-high-abuse / low-abuse | A team in a company’s marketing operations department (team lead Klaus; members Ayesha, Maria and Wolfgang). Starts Monday 08:00 and runs five workdays (120 steps of 60 minutes) with no scheduled events. The two groups differ only in the team lead’s leadership style: nine kinds of concrete behaviour written as habits Klaus has formed over years of leading the team, describing only what others can see, without evaluative words (final in V26; see the V26 notes in `changelog/`). |
-| Event-manipulation-high-abuse / low-abuse | The same team, manipulated through 8 scheduled events; starts 13 February 08:00 and runs 7 days (168 steps). |
-| Chinese persona and event templates (file names in Chinese) | Chinese versions of the four templates above, used for the pilot: the same four agents, with Chinese names, think, talk and answer surveys in Chinese. The English templates are translations of these (V27); every other setting is identical. |
+| Persona-manipulation-high-abuse_EN / low-abuse_EN | A team in a company’s marketing operations department (team lead Klaus; members Ayesha, Maria and Wolfgang). Starts Monday 08:00 and runs five workdays (120 steps of 60 minutes) with no scheduled events. The two groups differ only in the team lead’s leadership style: nine kinds of concrete behaviour written as habits Klaus has formed over years of leading the team, describing only what others can see, without evaluative words (final in V26; see the V26 notes in `changelog/`). |
+| Event-manipulation-high-abuse_EN / low-abuse_EN | The same team, manipulated through 8 scheduled events; starts 13 February 08:00 and runs 7 days (168 steps). |
+| Persona-manipulation-high-abuse_CN / low-abuse_CN, Event-manipulation-high-abuse_CN / low-abuse_CN | The same four templates for Chinese-language worlds, used for the pilot study: the same four agents think, talk and answer surveys in Chinese. The suffix marks the language of the world: _EN for English-language worlds, _CN for Chinese-language worlds. The _EN templates are translations of the _CN ones (V27), with every other setting identical. Until V27.3 the _EN templates had no suffix and the _CN templates had Chinese names; the old names still work. |
 
 ### Interface language and simulation language (V27)
 
@@ -148,7 +171,7 @@ On the setup page, expand “Cost-saving options (for limited budgets)” and ti
 | Symptom | Cause and fix |
 |---|---|
 | The launcher says “The system cannot find the path specified” or a dependency is missing | The environment is not installed. Double-click `Install.bat` (macOS / Linux: `bash install.sh`); if problems remain, add `--recreate`. |
-| Embedding test fails with `SSLError` or a dropped connection | The network to the cloud embedding service is unstable (common when reaching OpenRouter from mainland China). Switch to DashScope or local Ollama. The app retries for about one minute automatically. |
+| Embedding test fails with `SSLError` or a dropped connection | The network to the cloud embedding service is unstable (common on some networks). Switch to DashScope or local Ollama. The app retries for about one minute automatically. |
 | Local Ollama test returns 404 | Wrong embedding model name, or the model is not downloaded. Use `bge-m3:latest` and run `ollama pull bge-m3`. |
 | Runs are slow | Check latencies in `monitor/<world>/model_calls.jsonl`. Common causes: the model’s thinking mode is on, embeddings go through a proxy, or too many worlds run at once. |
 | The browser cannot open the page | Run the launcher again and use the address it prints (it moves to 5072 and up when 5071 is taken). Ports 5060 and 5061 are blocked by browsers, so the app starts at 5071. |
@@ -178,7 +201,7 @@ generative_agents/
   tests/                      Automated tests
 ```
 
-Version notes for each release are in the `changelog/` folder; known issues and research ideas are in the issue log in `docs/` (both in Chinese).
+A summary of the versions is in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Acknowledgements and license
 
